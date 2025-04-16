@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gemini Chatbot</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <div class="chat-app">
+    
+    <!-- Sidebar con la lista de chats -->
+    <div class="chat-sidebar">
+      <div id="chat-list" class="chat-list">
+        <!-- Lista de chats dinámicamente -->
+      </div>
+      <button onclick="createNewChat()" class="new-chat-button">+ New Chat</button>
+    </div>
+
+    <!-- Área principal del chat -->
+    <div class="chat-main">
+      <div id="chat-number" class="chat-number">Chat</div>
+      <div id="chat-history" class="chat-history"></div>
+      <div class="chat-input-area">
+        <input type="text" id="userInput" placeholder="Type a message..." class="chat-input" />
+        <button onclick="sendMessage()" class="send-button">Send</button>
+      </div>
+    </div>
+    
+  </div>
+
+  <script src="/static/script.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+</body>
+</html>
