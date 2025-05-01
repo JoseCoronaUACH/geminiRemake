@@ -8,6 +8,7 @@ click==8.1.8
 dotenv==0.9.9
 Flask==3.1.0
 flask-cors==5.0.1
+fitz
 google==3.0.0
 google-ai-generativelanguage==0.6.15
 google-api-core==2.24.2
