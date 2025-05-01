@@ -28,11 +28,6 @@ This repository contains a web-based CV built using HTML, CSS, and JavaScript. I
 
 ---
 
-## 📂 Estructura del proyecto | Project Structure
-
-JoseCoronaCV/ ├── css/ │ └── style.css # Estilos principales / Main styles ├── js/ │ └── script.js # Scripts interactivos ├── images/ │ └── ... # Imágenes y logos ├── index.html # Página principal del CV └── README.md # Este archivo / This file
-
-
 
 ---
 
