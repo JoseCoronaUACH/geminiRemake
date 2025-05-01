@@ -1,4 +1,4 @@
-/* === Importar fuente moderna === */
+/* === Import Fonts === */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 /* === Reset === */
@@ -15,18 +15,36 @@ body, html {
   color: #111;
 }
 
-/* === Main Container === */
+/* === Layout === */
 .main-container {
   display: flex;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.cv-section,
+.chat-section {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Expand CV when chat hidden */
+.main-container.chat-hidden .cv-section {
+  width: 100%;
+}
+
+.chat-section.hidden {
+  width: 0;
+  opacity: 0;
+  padding: 0;
   overflow: hidden;
 }
 
 /* === CV Section === */
 .cv-section {
   width: 40%;
-  background-color: #ffffff;
+  background-color: #fff;
   padding: 40px;
   overflow-y: auto;
   border-right: 1px solid #e0e0e0;
@@ -57,8 +75,7 @@ body, html {
 
 .cv-body h2 {
   font-size: 20px;
-  margin-top: 25px;
-  margin-bottom: 10px;
+  margin: 25px 0 10px;
   font-weight: 600;
   border-bottom: 1px solid #ccc;
   padding-bottom: 6px;
@@ -91,6 +108,7 @@ strong {
 }
 
 /* === Chat Section === */
+/* === Chat Section === */
 .chat-section {
   width: 60%;
   display: flex;
@@ -98,33 +116,109 @@ strong {
   background-color: #f9f9f9;
   padding: 40px;
   position: relative;
+  height: 100%; /* Ensure full height is used */
 }
 
-.chat-header {
-  margin-bottom: 20px;
-}
-
-.chat-header h2 {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-.chat-header p {
-  font-size: 15px;
-  color: #666;
-}
-
+/* Chat history area */
 .chat-history {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: auto;  /* Allows scrolling */
   padding-right: 10px;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-/* === Chat Messages === */
+/* === Input Area === */
+.chat-input-area {
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+  margin-top: 20px;
+  justify-content: space-between;  /* Ensures space between input and button */
+}
+
+.chat-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+}
+
+.send-button {
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin-left: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.send-button:hover {
+  background-color: #333;
+}
+
+/* === Responsive Styles === */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .cv-section,
+  .chat-section {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .chat-input-area {
+    flex-direction: column;
+  }
+
+  .send-button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .chat-message {
+    max-width: 100%;
+  }
+
+  .chat-section.hidden {
+    display: none;
+  }
+
+  .main-container.chat-hidden .cv-section {
+    width: 100%;
+  }
+
+  .toggle-chat-btn {
+    bottom: 80px; /* Keep the button away from the name in mobile view */
+  }
+
+  /* Adjust chat history area for mobile */
+  .chat-history {
+    flex: 1;
+    overflow-y: auto;
+    height: calc(100vh - 150px); /* Allow chat history to scroll */
+  }
+}
+
+/* === Desktop Styles === */
+@media (min-width: 769px) {
+  .toggle-chat-btn {
+    bottom: 110px; /* Move it higher to avoid overlapping with send button */
+  }
+}
+
+
+/* === Messages === */
 .chat-message {
   max-width: 70%;
   padding: 14px 18px;
@@ -188,4 +282,134 @@ strong {
 .chat-history::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 4px;
+}
+
+/* === Toggle Chat Button === */
+.toggle-chat-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 14px 18px;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.toggle-chat-btn:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+/* === Responsive Styles === */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .cv-section,
+  .chat-section {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .chat-input-area {
+    flex-direction: column;
+  }
+
+  .send-button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .chat-message {
+    max-width: 100%;
+  }
+
+  .chat-section.hidden {
+    display: none;
+  }
+
+  .main-container.chat-hidden .cv-section {
+    width: 100%;
+  }
+
+  .toggle-chat-btn {
+    bottom: 80px; /* Adjust position to not overlap name */
+  }
+}
+/* === Toggle Chat Button === */
+.toggle-chat-btn {
+  position: fixed;
+  bottom: 20px; /* Keep this for mobile devices */
+  right: 20px;
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 14px 18px;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.toggle-chat-btn:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+/* === Responsive Styles === */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .cv-section,
+  .chat-section {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .chat-input-area {
+    flex-direction: column;
+  }
+
+  .send-button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .chat-message {
+    max-width: 100%;
+  }
+
+  .chat-section.hidden {
+    display: none;
+  }
+
+  .main-container.chat-hidden .cv-section {
+    width: 100%;
+  }
+
+  .toggle-chat-btn {
+    bottom: 80px; /* Keep the button away from the name in mobile view */
+  }
+}
+
+/* === Desktop Styles === */
+@media (min-width: 769px) {
+  .toggle-chat-btn {
+    bottom: 110px; /* Move it higher to avoid overlapping with send button */
+  }
 }
