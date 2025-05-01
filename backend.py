@@ -1,10 +1,11 @@
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
+import fitz  # PyMuPDF
 from dotenv import load_dotenv
 import google.generativeai as genai
 
-# Load environment variables (API key)
+# === Load credentials and model ===
 load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-1.5-flash")
@@ -12,64 +13,59 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 app = Flask(__name__, static_folder="static")
 CORS(app)
 
-# Store chat history for multiple chats
-chat_sessions = {}
-current_chat_number = 1
+# === Load CV text dynamically ===
+def load_cv_text():
+    try:
+        doc = fitz.open("CV Jose.pdf")  # Assumes it's in the same directory
+        text = ""
+        for page in doc:
+            text += page.get_text()
+        doc.close()
+        return text.strip()
+    except Exception as e:
+        print("⚠️ Error loading CV:", e)
+        return "No se pudo cargar el CV."
 
-# Route to serve the index.html
+CV_TEXT = load_cv_text()
+
+# === Prompt base using CV text ===
+PROMPT_BASE = (
+    "Responde como un agente de ventas profesional presentando el perfil de Jose Corona.\n"
+    "Usa tono breve, emojis, y no respondas como asistente técnico.\n"
+    f"{CV_TEXT}\n"
+    "¿Qué te gustaría saber sobre Jose? 💬\n"
+)
+
+# === In-memory session ===
+session = {"context": "", "started": False}
+
 @app.route("/")
-def serve_index():
+def index():
     return send_from_directory("static", "index.html")
 
-# Create new chat session
-@app.route("/new_chat", methods=["POST"])
-def new_chat():
-    global current_chat_number
-    chat_id = current_chat_number
-    chat_sessions[chat_id] = {"context": "", "history": []}
-    current_chat_number += 1
-    return jsonify({"chat_id": chat_id})
+@app.route("/reset", methods=["POST"])
+def reset():
+    global session
+    session = {"context": "", "started": False}
+    return jsonify({"status": "ok"})
 
-# Handle user message and generate response
 @app.route("/chat", methods=["POST"])
 def chat():
-    data = request.get_json()
-    chat_id = data.get("chat_id")
-    user_input = data.get("message", "")
+    global session
+    msg = request.get_json().get("message", "").strip()
 
-    if chat_id not in chat_sessions:
-        return jsonify({"error": "Chat ID not found"}), 404
+    if not session["started"]:
+        session["started"] = True
+        return jsonify({"reply": "¡Hola! 👋 Soy el agente de Jose. ¿Qué te gustaría saber? 💬"})
 
-    context = chat_sessions[chat_id]["context"]
-    full_input = context + "\nUser: " + user_input + "Give me you response with te README commands from github(This way i give style to your response dont add anything about license and Contributing just your response in that style)\nBot:"
-    
-    response = model.generate_content(full_input)
+    if not msg:
+        return jsonify({"reply": "❌ Mensaje vacío."}), 400
 
-    chat_sessions[chat_id]["context"] = full_input + " " + response.text
-    chat_sessions[chat_id]["history"].append({"user": user_input, "bot": response.text})
+    prompt = session["context"] + "\nUsuario: " + msg + "\nAgente: " + PROMPT_BASE
+    response = model.generate_content(prompt)
 
+    session["context"] = prompt + "\n" + response.text
     return jsonify({"reply": response.text})
 
-# Get history for a chat session
-@app.route("/get_history")
-def get_history():
-    chat_id = request.args.get("chat_id", type=int)
-    history = chat_sessions.get(chat_id, {}).get("history", [])
-    return jsonify({"history": history})
-
-# Get list of chat sessions
-@app.route("/get_chats")
-def get_chats():
-    chats = [{"id": cid} for cid in chat_sessions.keys()]
-    return jsonify({"chats": chats})
-
-@app.route("/reset_chats", methods=["POST"])
-def reset_chats():
-    global chat_sessions, current_chat_number
-    chat_sessions = {}
-    current_chat_number = 1
-    return jsonify({"status": "reset"})
-
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)

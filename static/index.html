@@ -1,37 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gemini Chatbot</title>
+  <title>Jose Corona | CV + AI Agent</title>
   <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
+  <div class="main-container">
 
-  <div class="chat-app">
-    
-    <!-- Sidebar con la lista de chats -->
-    <div class="chat-sidebar">
-      <div id="chat-list" class="chat-list">
-        <!-- Lista de chats dinámicamente -->
+    <!-- Sección de presentación de CV -->
+    <section class="cv-section">
+      <div class="cv-header">
+        <h1>José Eduardo Corona Heredia</h1>
+        <p>Ingeniero Matemático · AutoZone Intern · UACH</p>
+        <p><a href="mailto:joseecorh@gmail.com">joseecorh@gmail.com</a> · 📞 +52 625 146 8579</p>
       </div>
-      <button onclick="createNewChat()" class="new-chat-button">+ New Chat</button>
-    </div>
 
-    <!-- Área principal del chat -->
-    <div class="chat-main">
-      <div id="chat-number" class="chat-number">Chat</div>
+      <div class="cv-body">
+        <h2>Sobre mí</h2>
+        <p>
+          Estudiante de último semestre en Ingeniería Matemática con experiencia en automatización,
+          análisis de datos y desarrollo full-stack. Apasionado por optimizar procesos logísticos mediante
+          soluciones técnicas creativas.
+        </p>
+
+        <h2>Experiencia</h2>
+        <ul>
+          <li><strong>Supply Chain Intern - AutoZone BTSSC</strong> (febrero 2025 - actualidad)</li>
+          <ul>
+            <li>Automatización de tickets con Power Automate y SharePoint</li>
+            <li>Integración con Microsoft Graph API usando Python</li>
+            <li>Desarrollo de plantillas web para sistemas internos</li>
+            <li>Automatización de reportes para el equipo de Routing</li>
+            <li>Optimización de bases de datos y flujos operativos</li>
+          </ul>
+        </ul>
+
+        <h2>Educación</h2>
+        <p><strong>Ingeniería Matemática</strong> - Universidad Autónoma de Chihuahua (2019 - Actualidad)</p>
+
+        <h2>Eventos Académicos</h2>
+        <ul>
+          <li>Segunda Escuela de Invierno en Matemáticas – Instituto de Matemáticas UNAM, Cuernavaca (noviembre 2023)</li>
+        </ul>
+
+        <h2>Habilidades Técnicas</h2>
+        <ul>
+          <li><strong>Lenguajes de Programación:</strong> Python, R, C, Java</li>
+          <li><strong>Herramientas de análisis:</strong> Excel, Power BI, Minitab, GNU Octave, MySQL</li>
+          <li><strong>Plataformas:</strong> Linux, ArcGIS</li>
+          <li><strong>Modelado y visualización:</strong> TensorFlow, Dashboards interactivos</li>
+        </ul>
+
+        <h2>Idiomas</h2>
+        <ul>
+          <li>Español – Nativo</li>
+          <li>Inglés – Profesional</li>
+        </ul>
+
+        <h2>Referencias</h2>
+        <ul>
+          <li>PhD. José Luis Herrera A. – UACH – <a href="mailto:jlherrera@uach.mx">jlherrera@uach.mx</a></li>
+          <li>Vanesa Rivera – Supply Chain Manager, AutoZone BTSSC – <a href="mailto:Sayra.Rivera@autozone.com">Sayra.Rivera@autozone.com</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Sección de chatbot -->
+    <section class="chat-section">
+      <div class="chat-header">
+        <h2>Agente Virtual</h2>
+        <p>Pregúntame sobre José 👇</p>
+      </div>
       <div id="chat-history" class="chat-history"></div>
       <div class="chat-input-area">
-        <input type="text" id="userInput" placeholder="Type a message..." class="chat-input" />
-        <button onclick="sendMessage()" class="send-button">Send</button>
+        <input type="text" id="userInput" placeholder="Escribe tu pregunta..." class="chat-input" />
+        <button onclick="sendMessage()" class="send-button">Enviar</button>
       </div>
-    </div>
-    
+    </section>
+
   </div>
-
-  <script src="/static/script.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
+  <script src="/static/script.js" defer></script>
 </body>
 </html>
