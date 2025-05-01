@@ -24,7 +24,7 @@ This repository contains a web-based CV built using HTML, CSS, and JavaScript. I
 - HTML5  
 - CSS3  
 - JavaScript  
-- Gemini Agent (via iframe embed)
+- Gemini Agent (python flask backend)
 
 ---
 
