@@ -37,4 +37,5 @@ Clona el repositorio y abre `index.html` en tu navegador.
 ```bash
 git clone https://github.com/JoseCoronaUACH/JoseCoronaCV.git
 cd JoseCoronaCV
-open index.html
+# after creating the venv and activating it
+python3 backend.py
