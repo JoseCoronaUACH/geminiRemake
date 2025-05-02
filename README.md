@@ -32,8 +32,7 @@ This repository contains a web-based CV built using HTML, CSS, and JavaScript. I
 
 ## 🚀 Visualización local | View locally
 
-Clona el repositorio y abre `index.html` en tu navegador.
-
+Clona el repositorio
 ```bash
 git clone https://github.com/JoseCoronaUACH/JoseCoronaCV.git
 cd JoseCoronaCV
