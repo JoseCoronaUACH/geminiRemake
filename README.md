@@ -1,6 +1,5 @@
 # 📄 JoseCoronaCV
 
-🌐 [Sitio en vivo / Live Site](https://josecoronauach.github.io/JoseCoronaCV/)
 
 Este repositorio contiene un currículum vitae web, desarrollado con HTML, CSS y JavaScript, que incluye un agente conversacional Gemini integrado para responder preguntas sobre la información del perfil.
 
